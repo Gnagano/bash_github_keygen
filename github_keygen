@@ -1,14 +1,26 @@
 #! /bin/sh
 
+# Exit if the same name key exists
+if [ -f $HOME/.ssh/$1.pub ]; then
+  echo "[ERROR] The key for the project '$1' has already exists."
+  exit
+fi
+
+# generate rsa key
 ssh-keygen -t rsa -b 4096 -C "default" -f $HOME/.ssh/$1
 
+# backup directory
+if [ ! -e  $HOME/.ssh/backup ]; then
+  mkdir $HOME/.ssh/backup
+  echo "backup/ does not exists"
+fi
 
-# if $HOME/.ssh/backup not exists
-# mkdir $HOME/.ssh/backup
+# backup config
+if [ -f $HOME/.ssh/config ]; then
+  cp $HOME/.ssh/config $HOME/.ssh/backup/config_backup
+fi
 
-# if $HOME/.ssh/config exists
-cp $HOME/.ssh/config $HOME/.ssh/backup/config_backup
-
+# edit .ssh/config
 cat << EOS >> $HOME/.ssh/config
 
 Host $1
