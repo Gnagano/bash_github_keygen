@@ -32,7 +32,6 @@ ssh-keygen -t rsa -b 4096 -C "$COMMENT" -f $HOME/.ssh/$1
 # backup directory
 if [ ! -e  $HOME/.ssh/backup ]; then
   mkdir $HOME/.ssh/backup
-  echo "backup/ does not exists"
 fi
 
 # backup config
