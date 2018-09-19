@@ -26,13 +26,17 @@ if [ -f $HOME/.ssh/$1.pub ]; then
   exit 1
 fi
 
+# mkfit keys dir if doesn't exist
+if [ ! -e  $HOME/.ssh/github_keys ]; then
+  mkdir $HOME/.ssh/github_keys
+fi
+
 # generate rsa key
-ssh-keygen -t rsa -b 4096 -C "$COMMENT" -f $HOME/.ssh/$1
+ssh-keygen -t rsa -b 4096 -C "$COMMENT" -f $HOME/.ssh/github_keys/$1
 
 # backup directory
 if [ ! -e  $HOME/.ssh/backup ]; then
   mkdir $HOME/.ssh/backup
-  echo "backup/ does not exists"
 fi
 
 # backup config
@@ -46,7 +50,7 @@ cat << EOS >> $HOME/.ssh/config
 Host $1
   Port 22
   HostName github.com
-  IdentityFile ~/.ssh/$1
+  IdentityFile ~/.ssh/github_keys/$1
   TCPKeepAlive yes
   IdentitiesOnly yes
 EOS
