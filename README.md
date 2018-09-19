@@ -22,7 +22,7 @@ The argument "project" is required, it is used as keys' name and ssh host name. 
 
 ### What's happen by the script
 
-After executing the script, rsa keys are generated to $HOME/.ssh/ whose name is the argument specified by <project>, like private key is project, public key is project.pub.
+After executing the script, rsa keys are generated to $HOME/.ssh/github_keys whose name is the argument specified by <project>, like private key is project, public key is project.pub.
 
 Then create the backup for $HOME/.ssh/config as $HOME/.ssh/backup/config_backup and edit $HOME/.ssh/config.
 The lines are added to the ssh config file ..
@@ -31,7 +31,7 @@ The lines are added to the ssh config file ..
 Host <project>
   Port 22
   HostName github.com
-  IdentityFile ~/.ssh/<project>
+  IdentityFile ~/.ssh/github_keys/<project>
   TCPKeepAlive yes
   IdentitiesOnly yes
 ```
